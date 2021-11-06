@@ -20,6 +20,8 @@ import Form15 from './Form15';
 import Form16 from './Form16';
 import Form17 from './Form17';
 import Form18 from './Form18';
+import { Redirect } from 'react-router';
+import { logout } from '../services/verifyUser';
 
 // import Button from './common/Button';
 // import Input from './common/Input';
@@ -27,19 +29,31 @@ import Form18 from './Form18';
 
 function Main() {
     const [formato, setFormato] = useState(0);
-
+    
+    const activeSession = window.localStorage.getItem('session');
     const arrayOfForms = [
         <Form1 />, <Form2 />, <Form3 />, <Form4 />, <Form5 />, <Form6 />, 
         <Form7 />, <Form8 />, <Form9 />, <Form10 />, <Form11 />, <Form12 />, 
         <Form13 />, <Form14/>, <Form15 />, <Form16 />, <Form17 />, <Form18 />,    
     ];
 
+    const onLogout = async () => {
+        await logout();
+        window.localStorage.removeItem('session');
+        window.location = '/login';
+    }
+
     const logoRoute = './images/uniminuto.png';
+    // const activeSession = 'true';
+    if (activeSession !== 'true') {
+        return <Redirect to="/login" />
+    }
+
     return (
         <div className='row m-0 p-0'>
             <div className='col-12 header'>
                 <img src={logoRoute} alt='logo' className='logo-main'/>
-                <button className='sign-out-btn'>
+                <button className='sign-out-btn' onClick={onLogout}>
                     <span><p>Salir</p></span>
                     <i className="fa fa-sign-out sign-out-icon"></i>
                 </button>

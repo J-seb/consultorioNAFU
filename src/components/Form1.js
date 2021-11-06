@@ -52,7 +52,7 @@ export default function Form1() {
         emailEstudiante: Yup.string().email('Se requiere email válido').required('Email es requerido'),
     });
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, touched, status, event) => {
         const date = values.fecha.split('-');
 
         const obj = { ...values, 
@@ -62,7 +62,13 @@ export default function Form1() {
             diaS: days[Number(date[2]) - 1],
         };
 
-        downloadFile(references.compromisoInterinstitucional, 0, obj);
+        console.log('touched', touched);
+        console.log('status', status);
+        console.log('event', event);
+
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.compromisoInterinstitucional, 0, obj, type);
         console.log('Form submitted!!!', values)
     };
 
@@ -213,8 +219,11 @@ export default function Form1() {
                     />
                 </div>
             </div>
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile1">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile1">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

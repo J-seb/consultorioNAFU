@@ -3,51 +3,39 @@ import * as Yup from 'yup';
 import FormField from './forms/FormField';
 import Form from './forms/Form';
 import SubmitButton from './forms/SubmitButton';
+import downloadFile from '../services/downloadfiles';
+import references from '../utils/references';
 
-export default function Form1() {
+export default function Form16() {
 
-    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-    const idRegExp = /^[0-9]+$/;
+    const lettersRegExp = /^[a-zA-Z\s]*$/;
 
     const initValues = {
-        fecha: '',
-
-        nombreJefe: '',
-        idJefe: '',
-        telJefe: '',
-        emailJefe: '',
-
-        nombreDocente: '',
-        idDocente: '',
-        telDocente: '',
-        emailDocente: '',
-
         nombreEstudiante: '',
-        idEstudiante: '',
-        telEstudiante: '',
-        emailEstudiante: '',
+        nombreSupervisor: '',
+        nombreDocente: '',
+        nombreCoordinador: '',
     }
 
     const schema = Yup.object().shape({
-        fecha: Yup.date().required('Fecha es requerida'),
-        
-        nombreJefe: Yup.string().max(100).required('Nombre es requerido'),
-        idJefe: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
-        telJefe: Yup.string().matches(phoneRegExp, 'Teléfono inválido').required('Teléfono es requerido'),
-        emailJefe: Yup.string().email('Se requiere email válido').required('Email es requerido'),
+        nombreEstudiante: Yup.string().max(50, 'Nombre debe ser menor a 50 caracteres').matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
+        nombreSupervisor: Yup.string().max(50, 'Nombre debe ser menor a 50 caracteres').matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
+        nombreDocente: Yup.string().max(50, 'Nombre debe ser menor a 50 caracteres').matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
+        nombreCoordinador: Yup.string().max(50, 'Nombre debe ser menor a 50 caracteres').matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
 
-        nombreDocente: Yup.string().max(100).required('Nombre es requerido'),
-        idDocente: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
-        telDocente: Yup.string().matches(phoneRegExp, 'Teléfono inválido').required('Teléfono es requerido'),
-        emailDocente: Yup.string().email('Se requiere email válido').required('Email es requerido'),
-
-        nombreEstudiante: Yup.string().max(100).required('Nombre es requerido'),
-        idEstudiante: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
-        telEstudiante: Yup.string().matches(phoneRegExp, 'Teléfono inválido').required('Teléfono es requerido'),
-        emailEstudiante: Yup.string().email('Se requiere email válido').required('Email es requerido'),
     });
 
     const handleSubmit = async (values) => {
+        const obj = {
+            "D7": values.nombreEstudiante,
+            "E81": values.nombreSupervisor,
+            "E82": values.nombreDocente,
+            "E83": values.nombreCoordinador,
+        }
+
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.registroDeAsistencia, 15, obj, type);
         console.log('Form submitted!!!', values)
     };
 
@@ -58,54 +46,24 @@ export default function Form1() {
         validationSchema={schema}
         >
             <div className="row form-group-row">
-                <span>Fecha: </span>
+                <span>Estudiante: </span>
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="fecha" 
+                        name="nombreEstudiante" 
                         placeholder="Nombre" 
                         className="form-input-content"
-                        type="date"
+                        type="text"
                         autoComplete="off"
                     />
                 </div>
             </div>
 
             <div className="row form-group-row">
-                <span>Jefe: </span>
+                <span>Supervisor: </span>
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="nombreJefe" 
+                        name="nombreSupervisor" 
                         placeholder="Nombre" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="idJefe" 
-                        placeholder="Identificacion" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="telJefe" 
-                        placeholder="Teléfono" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="emailJefe" 
-                        placeholder="Email" 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
@@ -124,82 +82,26 @@ export default function Form1() {
                         autoComplete="off"
                     />
                 </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="idDocente" 
-                        placeholder="Identificacion" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="telDocente" 
-                        placeholder="Teléfono" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="emailDocente" 
-                        placeholder="Email" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
             </div>
 
             <div className="row form-group-row">
-                <span>Estudiante: </span>
+                <span>Coordinador: </span>
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="nombreEstudiante" 
+                        name="nombreCoordinador" 
                         placeholder="Nombre" 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
                     />
                 </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="idEstudiante" 
-                        placeholder="Identificacion" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="telEstudiante" 
-                        placeholder="Teléfono" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="emailEstudiante" 
-                        placeholder="Email" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
             </div>
-            <SubmitButton className="form-button-content">
-                Enviar
+
+            <SubmitButton className="form-button-content me-5" name="downloadFile16">
+                <i className="fa fa-file-excel-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile16">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

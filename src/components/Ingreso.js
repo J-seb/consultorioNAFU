@@ -4,6 +4,7 @@ import Input from './common/Input';
 import Joi from 'joi';
 import swal from 'sweetalert';
 import { sendEmailToUser } from '../services/auth';
+import { Redirect } from 'react-router';
 
 function Ingreso() {
 
@@ -12,8 +13,8 @@ function Ingreso() {
 
     const schema = Joi.object({
         email: Joi.string().email({
-            minDomainSegments: 3,
-            tlds: { allow: ['co'] }
+            minDomainSegments: 2,
+            tlds: { allow: ['com', 'co'] }
         }).messages({
             'string.email': `"Correo" no valido`,
             'string.empty': `"Correo" no puede ser vacio`,
@@ -48,8 +49,8 @@ function Ingreso() {
         console.log(value)
         if (error) {
             setError(error.message);
-        } else if (!value.email.includes('usco.edu.co')) {
-            setError('"Correo" no valido')
+        // } else if (!value.email.includes('.co')) {
+        //     setError('"Correo" no válido')
         } else {
             setError(null);
         }
@@ -57,13 +58,19 @@ function Ingreso() {
 
     const logoRoute = './images/uniminuto.png';
     const splashRoute = './images/splash.svg';
+    
+    const activeSession = window.localStorage.getItem("session");
+
+    if (activeSession === 'true') {
+        return <Redirect to='/' />;
+    }
     return (
         <div className='row m-0 p-0'>
             <div className='col-lg-4 login'>
                 <img src={logoRoute} alt={'uniminuto'} className='logo'/>
                 <h1 className="info-login">Consultorio NAF</h1>
                 <h2 className="info-login">INGRESO</h2>
-                <Input placeholder='Correo Institucional' className='form-input' value={email} onChange={handleChange} error={error}/>
+                <Input placeholder='Correo Electrónico' className='form-input' value={email} onChange={handleChange} error={error}/>
                 <Button children='Solicitar Acceso' className='form-button' onClick={handleSubmit}/>
                 <h3 className="info-login">Uniminuto Neiva</h3>
                 <h3 className="info-login">2021</h3>

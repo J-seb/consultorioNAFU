@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import FormFieldTextArea from './forms/FormFieldTextArea';
 import Form from './forms/Form';
 import SubmitButton from './forms/SubmitButton';
 import downloadFile from '../services/downloadfiles';
 import references from '../utils/references';
-import { getBase64 } from '../utils/getBase64Url';
 
 export default function Form6() {
 
-    const [arrayOfFiles, setArrayOfFiles] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+    // const [arrayOfFiles, setArrayOfFiles] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
 
     const semanas = [
         'Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 
@@ -123,43 +122,44 @@ export default function Form6() {
 
     const handleSubmit = async (values) => {
 
-        console.log(arrayOfFiles);
+        // console.log(arrayOfFiles);
         const obj = { ...values,
-            foto1: arrayOfFiles[0],
-            foto2: arrayOfFiles[1],
-            foto3: arrayOfFiles[2],
-            foto4: arrayOfFiles[3],
-            foto5: arrayOfFiles[4],
-            foto6: arrayOfFiles[5],
-            foto7: arrayOfFiles[6],
-            foto8: arrayOfFiles[7],
-            foto9: arrayOfFiles[8],
-            foto10: arrayOfFiles[9],
-            foto11: arrayOfFiles[10],
-            foto12: arrayOfFiles[11],
-            foto13: arrayOfFiles[12],
-            foto14: arrayOfFiles[13],
-            foto15: arrayOfFiles[14],
-            foto16: arrayOfFiles[15],
+            // foto1: arrayOfFiles[0],
+            // foto2: arrayOfFiles[1],
+            // foto3: arrayOfFiles[2],
+            // foto4: arrayOfFiles[3],
+            // foto5: arrayOfFiles[4],
+            // foto6: arrayOfFiles[5],
+            // foto7: arrayOfFiles[6],
+            // foto8: arrayOfFiles[7],
+            // foto9: arrayOfFiles[8],
+            // foto10: arrayOfFiles[9],
+            // foto11: arrayOfFiles[10],
+            // foto12: arrayOfFiles[11],
+            // foto13: arrayOfFiles[12],
+            // foto14: arrayOfFiles[13],
+            // foto15: arrayOfFiles[14],
+            // foto16: arrayOfFiles[15],
         };
-
-        downloadFile(references.informeDeEjecucion, 5, obj, true);
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.informeDeEjecucion, 5, obj, type);
         console.log('Form submitted!!!', obj)
     };
 
-    const setImages = async (event) => {
-        const { id } = event.target;
+    // const setImages = async (event) => {
+    //     const { id } = event.target;
 
-        const index = Number(id.replace('foto', ''));
+    //     const index = Number(id.replace('foto', ''));
 
-        const file = event.target.files[0];
-        const base64 = await getBase64(file);
+    //     const file = event.target.files[0];
+    //     const base64 = await getBase64(file);
 
-        const myFilesLoaded = [...arrayOfFiles];
-        myFilesLoaded[index] = base64;
+    //     const myFilesLoaded = [...arrayOfFiles];
+    //     myFilesLoaded[index] = base64;
 
-        setArrayOfFiles(myFilesLoaded);
-    }
+    //     setArrayOfFiles(myFilesLoaded);
+    // }
 
     return (
         <Form
@@ -190,17 +190,20 @@ export default function Form6() {
                         />
                     </div>
 
-                    <div className="col-12 col-lg-12 my-4">
+                    {/* <div className="col-12 col-lg-12 my-4">
                         <label htmlFor={`foto${index + 1}`}>{`Registro ${index + 1}`}</label>
                         <input name={`foto${index + 1}`} type="file" id={`foto${index}`}
                             onChange={(event) => setImages(event)}
                         />
-                    </div>
+                    </div> */}
                 </div>
             ))}
             
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile6">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile6">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

@@ -14,6 +14,7 @@ export default function Form7() {
     const lettersRegExp = /^[a-zA-Z\s]*$/;
 
     const itemsTabla = [
+        'Items',
         'El practicante tiene ya formalizado y registrado su contrato de aprendizaje, contrato de trabajo y/o convenio de vinculación de práctica profesional  CONSULTORIO CONTABLE NAF',
         'El practicante ha recibido la inducción para el desarrollo de sus labores',
         'Espacio físico adecuado (Trabajo en casa por COVID- 19)',
@@ -89,41 +90,18 @@ export default function Form7() {
     const handleSubmit = async (values) => {
         const arrayFecha = values.fecha.split('-');
 
-        const si1 = values.item1 === 'si' ? 'X' : '';
-        const no1 = values.item1 === 'no' ? 'X' : '';
-
-        const si2 = values.item2 === 'si' ? 'X' : '';
-        const no2 = values.item2 === 'no' ? 'X' : '';
-
-        const si3 = values.item3 === 'si' ? 'X' : '';
-        const no3 = values.item3 === 'no' ? 'X' : '';
-
-        const si4 = values.item4 === 'si' ? 'X' : '';
-        const no4 = values.item4 === 'no' ? 'X' : '';
-
-        const si5 = values.item5 === 'si' ? 'X' : '';
-        const no5 = values.item5 === 'no' ? 'X' : '';
-
-        const si6 = values.item6 === 'si' ? 'X' : '';
-        const no6 = values.item6 === 'no' ? 'X' : '';
-
-        const si7 = values.item7 === 'si' ? 'X' : '';
-        const no7 = values.item7 === 'no' ? 'X' : '';
-
-        const si8 = values.item8 === 'si' ? 'X' : '';
-        const no8 = values.item8 === 'no' ? 'X' : '';
-
-        const si9 = values.item9 === 'si' ? 'X' : '';
-        const no9 = values.item9 === 'no' ? 'X' : '';
-
-        const si10 = values.item10 === 'si' ? 'X' : '';
-        const no10 = values.item10 === 'no' ? 'X' : '';
-        
-        const si11 = values.item11 === 'si' ? 'X' : '';
-        const no11 = values.item11 === 'no' ? 'X' : '';
-
-        const si12 = values.item12 === 'si' ? 'X' : '';
-        const no12 = values.item12 === 'no' ? 'X' : '';
+        const [si1, no1] = values.item1 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si2, no2] = values.item2 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si3, no3] = values.item3 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si4, no4] = values.item4 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si5, no5] = values.item5 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si6, no6] = values.item6 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si7, no7] = values.item7 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si8, no8] = values.item8 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si9, no9] = values.item9 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si10, no10] = values.item10 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si11, no11] = values.item11 === 'si' ? ['X', ''] : ['', 'X'];
+        const [si12, no12] = values.item12 === 'si' ? ['X', ''] : ['', 'X'];
 
         const obj = { ...values,
             fecha: `${arrayFecha[2]}/${arrayFecha[1]}/${arrayFecha[0]}`,
@@ -131,7 +109,9 @@ export default function Form7() {
             si7, no7, si8, no8, si9, no9, si10, no10, si11, no11, si12, no12
         };
 
-        downloadFile(references.visita1, 6, obj);
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.visita1, 6, obj, type);
         console.log('Form submitted!!!', values)
     };
 
@@ -241,17 +221,17 @@ export default function Form7() {
             </div>
 
             <div className="row form-group-row">
-                <div className="row my-2">
+                {/* <div className="row my-2">
                         <div className="col-10">
                             <p>Items: </p>
                         </div>
                         <div className="col-1">
-                            <p> SI </p>
+                            
                         </div>
                         <div className="col-1">
                             <p> NO </p>
                         </div>
-                </div>
+                </div> */}
                 {itemsTabla.map((item, index) => (
                     <div className="row my-4" key={`itemTabla${index}`}>
                         <div className="col-9">
@@ -269,17 +249,28 @@ export default function Form7() {
                             )}
                         </div>
                         <div className="col-1 offset-1">
-                            <FormField type="radio" id={`itemSi${index + 1}`} name={`item${index + 1}`} value="si" defaultChecked />
+                            {index === 0 ? 
+                                <p> SI </p>
+                                :
+                                <FormField type="radio" name={`item${index + 1}`} value="si" defaultChecked />
+                            }
                         </div>
                         <div className="col-1">
-                            <FormField type="radio" id={`itemNo${index + 1}`} name={`item${index + 1}`} value="no" />
+                            {index === 0 ?
+                                <p> NO </p>
+                                :                              
+                                <FormField type="radio" name={`item${index + 1}`} value="no" />
+                            }
                         </div>
                     </div>
                 ))}
             </div>
 
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile7">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile7">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

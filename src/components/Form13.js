@@ -3,52 +3,70 @@ import * as Yup from 'yup';
 import FormField from './forms/FormField';
 import Form from './forms/Form';
 import SubmitButton from './forms/SubmitButton';
+import downloadFile from '../services/downloadfiles';
+import references from '../utils/references';
+import months from '../utils/monthString';
 
-export default function Form1() {
+export default function Form13() {
 
-    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const idRegExp = /^[0-9]+$/;
+    const lettersRegExp = /^[a-zA-Z\s]*$/;
 
     const initValues = {
         fecha: '',
+        fechaInicioPractica: '',
 
-        nombreJefe: '',
-        idJefe: '',
-        telJefe: '',
-        emailJefe: '',
+        lugarReunion: '',
 
-        nombreDocente: '',
-        idDocente: '',
-        telDocente: '',
-        emailDocente: '',
+        nombreSupervisor: '',
+        idSupervisor: '',
+        lugarIdSupervisor: '',
+
+        nombreTutor: '',
+        idTutor: '',
+        lugarIdTutor: '',
 
         nombreEstudiante: '',
-        idEstudiante: '',
-        telEstudiante: '',
-        emailEstudiante: '',
+        idCEstudiante: '',
     }
 
     const schema = Yup.object().shape({
         fecha: Yup.date().required('Fecha es requerida'),
+        fechaInicioPractica: Yup.date().required('Fecha es requerida'),
+
+        lugarReunion: Yup.string().max(100).required('Lugar es requerido'),
         
-        nombreJefe: Yup.string().max(100).required('Nombre es requerido'),
-        idJefe: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
-        telJefe: Yup.string().matches(phoneRegExp, 'Teléfono inválido').required('Teléfono es requerido'),
-        emailJefe: Yup.string().email('Se requiere email válido').required('Email es requerido'),
+        nombreSupervisor: Yup.string().max(100).matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
+        idSupervisor: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
+        lugarIdSupervisor: Yup.string().max(100).required('Lugar de exp es requerido'),
 
-        nombreDocente: Yup.string().max(100).required('Nombre es requerido'),
-        idDocente: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
-        telDocente: Yup.string().matches(phoneRegExp, 'Teléfono inválido').required('Teléfono es requerido'),
-        emailDocente: Yup.string().email('Se requiere email válido').required('Email es requerido'),
+        nombreTutor: Yup.string().max(100).matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
+        idTutor: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
+        lugarIdTutor: Yup.string().max(100).required('Lugar de exp es requerido'),
 
-        nombreEstudiante: Yup.string().max(100).required('Nombre es requerido'),
-        idEstudiante: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
-        telEstudiante: Yup.string().matches(phoneRegExp, 'Teléfono inválido').required('Teléfono es requerido'),
-        emailEstudiante: Yup.string().email('Se requiere email válido').required('Email es requerido'),
+        nombreEstudiante: Yup.string().max(100).matches(lettersRegExp, 'Nombre inválido').required('Nombre es requerido'),
+        idCEstudiante: Yup.string().matches(idRegExp, 'Id inválido').required('Id es requerido'),
     });
 
     const handleSubmit = async (values) => {
-        console.log('Form submitted!!!', values)
+
+        const fechaReunion = values.fecha.split('-');
+        const fechaInicio = values.fechaInicioPractica.split('-');
+
+        const obj = {
+            ...values,
+            diaN: fechaReunion[2],
+            mes: months[Number(fechaReunion[1]) - 1],
+            ano: fechaReunion[0],
+
+            diaInicioPractica: fechaInicio[2],
+            mesInicioPractica: months[Number(fechaInicio[1]) - 1],
+            anoInicioPractica: fechaInicio[0]
+        }
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.actaDeTerminacion, 12, obj, type);
+        console.log('Form submitted!!!', values);
     };
 
     return (
@@ -58,8 +76,8 @@ export default function Form1() {
         validationSchema={schema}
         >
             <div className="row form-group-row">
-                <span>Fecha: </span>
-                <div className="col-12 col-lg-3">
+                <span>Fecha de reunión: </span>
+                <div className="col-6 col-lg-3">
                     <FormField 
                         name="fecha" 
                         placeholder="Nombre" 
@@ -71,41 +89,24 @@ export default function Form1() {
             </div>
 
             <div className="row form-group-row">
-                <span>Jefe: </span>
-                <div className="col-12 col-lg-3">
+                <span>Fecha de inicio de práctica: </span>
+                <div className="col-6 col-lg-3">
                     <FormField 
-                        name="nombreJefe" 
+                        name="fechaInicioPractica" 
                         placeholder="Nombre" 
                         className="form-input-content"
-                        type="text"
+                        type="date"
                         autoComplete="off"
                     />
                 </div>
+            </div>
 
-                <div className="col-12 col-lg-3">
+            <div className="row form-group-row">
+                <span>Lugar reunión: </span>
+                <div className="col-6 col-lg-3">
                     <FormField 
-                        name="idJefe" 
-                        placeholder="Identificacion" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="telJefe" 
-                        placeholder="Teléfono" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="emailJefe" 
-                        placeholder="Email" 
+                        name="lugarReunion" 
+                        placeholder="" 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
@@ -114,10 +115,10 @@ export default function Form1() {
             </div>
 
             <div className="row form-group-row">
-                <span>Docente: </span>
+                <span>Supervisor: </span>
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="nombreDocente" 
+                        name="nombreSupervisor" 
                         placeholder="Nombre" 
                         className="form-input-content"
                         type="text"
@@ -127,7 +128,7 @@ export default function Form1() {
 
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="idDocente" 
+                        name="idSupervisor" 
                         placeholder="Identificacion" 
                         className="form-input-content"
                         type="text"
@@ -137,8 +138,21 @@ export default function Form1() {
 
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="telDocente" 
-                        placeholder="Teléfono" 
+                        name="lugarIdSupervisor" 
+                        placeholder="Lugar de exp." 
+                        className="form-input-content"
+                        type="text"
+                        autoComplete="off"
+                    />
+                </div>
+            </div>
+
+            <div className="row form-group-row">
+                <span>Tutor: </span>
+                <div className="col-12 col-lg-3">
+                    <FormField 
+                        name="nombreTutor" 
+                        placeholder="Nombre" 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
@@ -147,8 +161,18 @@ export default function Form1() {
 
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="emailDocente" 
-                        placeholder="Email" 
+                        name="idTutor" 
+                        placeholder="Identificacion" 
+                        className="form-input-content"
+                        type="text"
+                        autoComplete="off"
+                    />
+                </div>
+
+                <div className="col-12 col-lg-3">
+                    <FormField 
+                        name="lugarIdTutor" 
+                        placeholder="Lugar de exp." 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
@@ -170,36 +194,20 @@ export default function Form1() {
 
                 <div className="col-12 col-lg-3">
                     <FormField 
-                        name="idEstudiante" 
-                        placeholder="Identificacion" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="telEstudiante" 
-                        placeholder="Teléfono" 
-                        className="form-input-content"
-                        type="text"
-                        autoComplete="off"
-                    />
-                </div>
-
-                <div className="col-12 col-lg-3">
-                    <FormField 
-                        name="emailEstudiante" 
-                        placeholder="Email" 
+                        name="idCEstudiante" 
+                        placeholder="Código" 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
                     />
                 </div>
             </div>
-            <SubmitButton className="form-button-content">
-                Enviar
+
+            <SubmitButton className="form-button-content me-5" name="downloadFile13">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile13">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

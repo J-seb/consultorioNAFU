@@ -66,8 +66,9 @@ export default function Form8() {
             fechaCompromiso3: `${fCompromiso3[2]}/${fCompromiso3[1]}/${fCompromiso3[0]}`,
             fechaCompromiso4: `${fCompromiso4[2]}/${fCompromiso4[1]}/${fCompromiso4[0]}`,
         };
-
-        downloadFile(references.actaN2, 7, obj);
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.actaN2, 7, obj, type);
         console.log('Form submitted!!!', values)
     };
 
@@ -200,8 +201,11 @@ export default function Form8() {
                     />
                 </div>
             </div>
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile8">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile8">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

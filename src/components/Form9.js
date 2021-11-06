@@ -7,8 +7,6 @@ import downloadFile from '../services/downloadfiles';
 import references from '../utils/references';
 import Select from './forms/Select';
 import FormFieldTextArea from './forms/FormFieldTextArea';
-import days from '../utils/dayString';
-import months from '../utils/monthString';
 
 export default function Form9() {
 
@@ -32,7 +30,7 @@ export default function Form9() {
         asistente1: '',
         asistente2: '',
 
-        cumplimiento: '',
+        cumplimiento: 'pertinente',
 
         sobrepasaExpectativas: 'SI',
         ajustaAExpectativas: 'SI',
@@ -73,37 +71,21 @@ export default function Form9() {
 
     const handleSubmit = async (values) => {
         const date = values.fecha.split('-');
+        const pertinente = values.cumplimiento === 'pertinente' ? 'X': '___';
+        const adecuado = values.cumplimiento === 'adecuado' ? 'X': '___';
+        const porFortalecer = values.cumplimiento === 'porFortalecer' ? 'X': '___';
 
-        const obj = {
-            periodo: 'X',
-            fecha: 'XXXXXX',
-    
-            direccion: 'XXXXX',
-            telefono: 'XXXXX',
-    
-            jefeInmediato: 'XXXXXXXXXXXXX',
-            docente: 'XXXXXXXXXXXX',
-    
-            practicante: 'XXXXXXXXXXXXXX',
-            documento: 'XXXXXXXXXXXXX',
-    
-            asistente1: 'XXXXXXXXXXXX',
-            asistente2: 'XXXXXXXXXXXX',
 
-            pertinente: '_____',
-            adecuado: '_____',
-            porFortalecer: '_____',
+        const obj = {...values,
+            fecha: `${date[2]}/${date[1]}/${date[0]}`,
 
-            sobrepasaExpectativas: '_____',
-            ajustaAExpectativas: '_____',
-            noCumpleExpectativas: '_____',
-
-            noCumpleExpectativasJustificacion: '_______________________',
-            
-            observacionesYSugerencias: '________________________________________________________________________________________________________________________________________________________________________________________',
+            pertinente,
+            adecuado,
+            porFortalecer,
         };
-
-        downloadFile(references.compromisoInterinstitucional, 0, obj);
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.visita2, 8, obj, type);
         console.log('Form submitted!!!', values)
     };
 
@@ -350,8 +332,11 @@ export default function Form9() {
             </div>
             
 
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile9">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile9">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

@@ -59,8 +59,9 @@ export default function Form4() {
             fechaCompromiso2:`${fechaCompromiso2[2]}/${fechaCompromiso2[1]}/${fechaCompromiso2[0]}`,
             fechaCompromiso3: `${fechaCompromiso3[2]}/${fechaCompromiso3[1]}/${fechaCompromiso3[0]}`,
         };
-
-        downloadFile(references.actaN1, 3, obj);
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.actaN1, 3, obj, type);
     };
 
     return (
@@ -182,8 +183,11 @@ export default function Form4() {
                     />
                 </div>
             </div>
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile4">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile4">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

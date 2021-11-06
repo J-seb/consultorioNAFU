@@ -70,8 +70,10 @@ export default function Form3() {
             mesFin: months[Number(dateFinal[1]) - 1],
             anoFin: dateFinal[0],
         };
-
-        downloadFile(references.actaDeInicio, 2, obj);
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.actaDeInicio, 2, obj, type);
+        console.log('Form submitted!!!', values);
     };
 
     return (
@@ -85,6 +87,19 @@ export default function Form3() {
                 <div className="col-12 col-lg-3">
                     <FormField key='form3fecha'
                         name="fecha" 
+                        placeholder="Nombre" 
+                        className="form-input-content"
+                        type="date"
+                        autoComplete="off"
+                    />
+                </div>
+            </div>
+
+            <div className="row form-group-row">
+                <span>Fecha finalización: </span>
+                <div className="col-12 col-lg-3">
+                    <FormField key='form3fecha'
+                        name="fechaFinalizacion" 
                         placeholder="Nombre" 
                         className="form-input-content"
                         type="date"
@@ -200,7 +215,7 @@ export default function Form3() {
                 <div className="col-12 col-lg-3">
                     <FormField key='form3Codigo'
                         name="codigo" 
-                        placeholder="Nombre" 
+                        placeholder="Código" 
                         className="form-input-content"
                         type="text"
                         autoComplete="off"
@@ -230,8 +245,11 @@ export default function Form3() {
             </div>
 
             
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile3">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile3">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )

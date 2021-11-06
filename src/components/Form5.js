@@ -87,8 +87,10 @@ export default function Form5() {
 
     const handleSubmit = async (values) => {
         const obj = { ...values };
-
-        downloadFile(references.planDeTrabajo, 4, obj);
+        
+        const type = window.event.target.name;
+        console.log(type);
+        downloadFile(references.planDeTrabajo, 4, obj, type);
     };
 
     return (
@@ -199,11 +201,11 @@ export default function Form5() {
             <div className="row form-group-row">
                 <span>Semana 1: </span>
                 <div className="col-12 col-lg-3">
-                    <FormFieldTextArea key='form5Semana1'
-                        name="Semana 1" 
-                        placeholder="Descripcion" 
+                    <FormField key='form5Semana1Area'
+                        name="area" 
+                        placeholder="Nombre" 
                         className="form-input-content"
-                        type="textfield"
+                        type="text"
                         autoComplete="off"
                     />
                 </div>
@@ -225,8 +227,11 @@ export default function Form5() {
                 </div>
             ))}
 
-            <SubmitButton className="form-button-content">
-                Enviar
+            <SubmitButton className="form-button-content me-5" name="downloadFile5">
+                <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
+            </SubmitButton>
+            <SubmitButton className="form-button-content" name="printFile5">
+                <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
             </SubmitButton>
       </Form>
     )
