@@ -27,9 +27,9 @@ export default function Form18() {
             "G5": values.identificacionEstudiante,
         }
 
-        const type = document.activeElement.dataset.flag;
-        console.log(type);
-        downloadFile(references.anexo3, 17, obj, type);
+        // const type = document.activeElement.dataset.flag;
+        // console.log(type);
+        downloadFile(references.anexo3, 17, obj);
         console.log('Form submitted!!!', values)
     };
 
@@ -65,9 +65,9 @@ export default function Form18() {
             <SubmitButton className="form-button-content me-5" data-flag="downloadFile">
                 <i className="fa fa-file-excel-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" data-flag="printFile">
+            {/* <SubmitButton className="form-button-content" data-flag="printFile">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

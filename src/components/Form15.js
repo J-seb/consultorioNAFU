@@ -242,9 +242,9 @@ export default function Form15() {
             f27,
         }
 
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.evaluacionDeImpacto, 14, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.evaluacionDeImpacto, 14, obj);
         console.log('Form submitted!!!', values);
     };
 
@@ -337,9 +337,9 @@ export default function Form15() {
             <SubmitButton className="form-button-content me-5" name="downloadFile15">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile15">
+            {/* <SubmitButton className="form-button-content" name="printFile15">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

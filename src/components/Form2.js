@@ -38,9 +38,9 @@ export default function Form2() {
             mes: months[Number(date[1]) - 1], 
             ano: date[0],
         };
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.compromisoDeConfidencialidad, 1, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.compromisoDeConfidencialidad, 1, obj);
         console.log('Form submitted!!!', values);
     };
 
@@ -102,9 +102,9 @@ export default function Form2() {
             <SubmitButton className="form-button-content me-5" name="downloadFile2">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile2">
+            {/* <SubmitButton className="form-button-content" name="printFile2">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

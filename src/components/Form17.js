@@ -500,9 +500,9 @@ export default function Form17() {
             i12cd3,
 
         }
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.evaluacionDeProceso, 16, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.evaluacionDeProceso, 16, obj);
         console.log('Form submitted!!!', values)
     };
 
@@ -781,9 +781,9 @@ export default function Form17() {
             <SubmitButton className="form-button-content me-5" name="downloadFile17">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile17">
+            {/* <SubmitButton className="form-button-content" name="printFile17">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

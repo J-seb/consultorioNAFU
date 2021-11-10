@@ -18,7 +18,7 @@ const blobToBase64 = async(blob) => {
     });
 }
 
-const downloadFile = async (ref, id, obj, type) => {
+const downloadFile = async (ref, id, obj, type = 'download') => {
     let gsReference = firebase.storage().refFromURL(ref);
     console.log('El id es', id);
     console.log('El type es', type)

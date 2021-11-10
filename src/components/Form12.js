@@ -67,9 +67,9 @@ export default function Form12() {
             fechaCompromiso4: `${fCompromiso4[2]}/${fCompromiso4[1]}/${fCompromiso4[0]}`,
         };
 
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.actaN4, 11, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.actaN4, 11, obj);
         console.log('Form submitted!!!', values)
     };
 
@@ -205,9 +205,9 @@ export default function Form12() {
             <SubmitButton className="form-button-content me-5" name="downloadFile12">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile12">
+            {/* <SubmitButton className="form-button-content" name="printFile12">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

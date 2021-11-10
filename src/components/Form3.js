@@ -70,9 +70,9 @@ export default function Form3() {
             mesFin: months[Number(dateFinal[1]) - 1],
             anoFin: dateFinal[0],
         };
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.actaDeInicio, 2, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.actaDeInicio, 2, obj);
         console.log('Form submitted!!!', values);
     };
 
@@ -248,9 +248,9 @@ export default function Form3() {
             <SubmitButton className="form-button-content me-5" name="downloadFile3">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile3">
+            {/* <SubmitButton className="form-button-content" name="printFile3">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

@@ -88,9 +88,9 @@ export default function Form5() {
     const handleSubmit = async (values) => {
         const obj = { ...values };
         
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.planDeTrabajo, 4, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.planDeTrabajo, 4, obj);
     };
 
     return (
@@ -230,9 +230,9 @@ export default function Form5() {
             <SubmitButton className="form-button-content me-5" name="downloadFile5">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile5">
+            {/* <SubmitButton className="form-button-content" name="printFile5">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

@@ -141,9 +141,9 @@ export default function Form6() {
             // foto15: arrayOfFiles[14],
             // foto16: arrayOfFiles[15],
         };
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.informeDeEjecucion, 5, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.informeDeEjecucion, 5, obj);
         console.log('Form submitted!!!', obj)
     };
 
@@ -202,9 +202,9 @@ export default function Form6() {
             <SubmitButton className="form-button-content me-5" name="downloadFile6">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile6">
+            {/* <SubmitButton className="form-button-content" name="printFile6">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

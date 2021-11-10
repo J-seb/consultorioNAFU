@@ -33,9 +33,9 @@ export default function Form16() {
             "E83": values.nombreCoordinador,
         }
 
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.registroDeAsistencia, 15, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.registroDeAsistencia, 15, obj);
         console.log('Form submitted!!!', values)
     };
 
@@ -100,9 +100,9 @@ export default function Form16() {
             <SubmitButton className="form-button-content me-5" name="downloadFile16">
                 <i className="fa fa-file-excel-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile16">
+            {/* <SubmitButton className="form-button-content" name="printFile16">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

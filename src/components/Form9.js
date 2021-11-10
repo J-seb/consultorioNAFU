@@ -83,9 +83,9 @@ export default function Form9() {
             adecuado,
             porFortalecer,
         };
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.visita2, 8, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.visita2, 8, obj);
         console.log('Form submitted!!!', values)
     };
 
@@ -335,9 +335,9 @@ export default function Form9() {
             <SubmitButton className="form-button-content me-5" name="downloadFile9">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile9">
+            {/* <SubmitButton className="form-button-content" name="printFile9">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

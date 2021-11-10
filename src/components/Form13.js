@@ -63,9 +63,9 @@ export default function Form13() {
             mesInicioPractica: months[Number(fechaInicio[1]) - 1],
             anoInicioPractica: fechaInicio[0]
         }
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.actaDeTerminacion, 12, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.actaDeTerminacion, 12, obj);
         console.log('Form submitted!!!', values);
     };
 
@@ -206,9 +206,9 @@ export default function Form13() {
             <SubmitButton className="form-button-content me-5" name="downloadFile13">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile13">
+            {/* <SubmitButton className="form-button-content" name="printFile13">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

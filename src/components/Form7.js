@@ -109,9 +109,9 @@ export default function Form7() {
             si7, no7, si8, no8, si9, no9, si10, no10, si11, no11, si12, no12
         };
 
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.visita1, 6, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.visita1, 6, obj);
         console.log('Form submitted!!!', values)
     };
 
@@ -269,9 +269,9 @@ export default function Form7() {
             <SubmitButton className="form-button-content me-5" name="downloadFile7">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile7">
+            {/* <SubmitButton className="form-button-content" name="printFile7">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }

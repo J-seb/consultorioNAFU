@@ -57,9 +57,9 @@ export default function form14FechaCompromiso1() {
             fechaCompromiso1: `${fCompromiso1[2]}/${fCompromiso1[1]}/${fCompromiso1[0]}`,
             fechaCompromiso2: `${fCompromiso2[2]}/${fCompromiso2[1]}/${fCompromiso2[0]}`,
         };
-        const type = window.event.target.name;
-        console.log(type);
-        downloadFile(references.actaN5, 13, obj, type);
+        // const type = window.event.target.name;
+        // console.log(type);
+        downloadFile(references.actaN5, 13, obj);
         console.log('Form submitted!!!', values);
     };
 
@@ -175,9 +175,9 @@ export default function form14FechaCompromiso1() {
             <SubmitButton className="form-button-content me-5" name="downloadFile14">
                 <i className="fa fa-file-word-o me-3" aria-hidden="true"></i><span>Descargar Archivo</span>
             </SubmitButton>
-            <SubmitButton className="form-button-content" name="printFile14">
+            {/* <SubmitButton className="form-button-content" name="printFile14">
                 <i className="fa fa-print me-3" aria-hidden="true"></i><span>Imprimir</span>
-            </SubmitButton>
+            </SubmitButton> */}
       </Form>
     )
 }
